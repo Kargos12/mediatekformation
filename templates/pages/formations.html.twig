@@ -16,20 +16,19 @@
                         <button type="submit" class="btn btn-info mb-2 btn-sm">filtrer</button>
                     </form>
                 </th>
-                <th>    
-                    Niveau
-                    <form class="form-inline mt-1" method="POST" action="{{ path('formations.findallcontain', {champ:'title'}) }}">
-                       
-                        <div class="form-group mr-1 mb-2">
+                <th>    <!-- requête pour filtre sur le niveau !-->
+                    Niveau 
+                    <form class="form-inline mt-1" method="POST" action=""{{ path('niveau.findallequal', {champ:'getNom()'}) }}">
+                        <div class="form-group mt-1 mb-2">
                             <input type="text" class="sm" name="recherche">
                         </div>
-                        <input type="hidden" name="_token" value="{{ csrf_token('filtre_title') }}">
-                        <button type="submit" class="btn btn-info mb-2 btn-sm">filtrer</button>
+                        <button type="submit" class="btn btn-primary mb-2 btn-sm">filtrer</button>
                     </form>
                     
                 </th>
                 
                 <th class="text-center align-top" scope="col">
+                    Date de parution
                     <a href="{{ path('formations.sort', {champ:'publishedAt', ordre:'DESC'}) }}" class="btn btn-info btn-sm active" role="button" aria-pressed="true"><</a>
                     <a href="{{ path('formations.sort', {champ:'publishedAt', ordre:'ASC'}) }}" class="btn btn-info btn-sm active" role="button" aria-pressed="true">></a>
                  </th>

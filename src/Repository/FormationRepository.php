@@ -68,5 +68,26 @@ class FormationRepository extends ServiceEntityRepository
            ->getQuery()
            ->getResult();
     }
+    /**
+     * requête pour filtre sur le niveau
+     * @param type $champ
+     * @param type $valeur
+     * @return niveau.getNom()[]
+     */
+    public function findByEqualValue($champ, $valeur) : array {
+        if($valeur==""){
+            return $this->createQueryBuilder('n') // alias de la table
+                    ->orderBy('n'.$champ, 'ASC')
+                    ->getQuery()
+                    ->getResult;
+        }else{
+            return $this->createQueryBuilder('n') // alias de la table
+                    ->where ('n'.$champ.'=:valeur')
+                    ->setParameter('valeur',$valeur)
+                    ->orderBy('n.nom','DESC')
+                    ->getQuery()
+                    ->getResult();
+        }
+    }
    
 }
