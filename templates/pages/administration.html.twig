@@ -12,10 +12,10 @@
             <tr>
                 <th class="text-left align-top" scope="col">
                     Titre
-                    <a href="{{ path('formations.sort', {champ:'title', ordre:'DESC'}) }}" class="btn btn-info btn-sm active" role="button" aria-pressed="true"><</a>
-                    <a href="{{ path('formations.sort', {champ:'title', ordre:'ASC'}) }}" class="btn btn-info btn-sm active" role="button" aria-pressed="true">></a>
+                    <a href="{{ path('administration.sort', {champ:'title', ordre:'DESC'}) }}" class="btn btn-info btn-sm active" role="button" aria-pressed="true"><</a>
+                    <a href="{{ path('administration.sort', {champ:'title', ordre:'ASC'}) }}" class="btn btn-info btn-sm active" role="button" aria-pressed="true">></a>
                     
-                    <form class="form-inline mt-1" method="POST" action="{{ path('formations.findallcontain', {champ:'title'}) }}">
+                    <form class="form-inline mt-1" method="POST" action="{{ path('administration.findallcontain', {champ:'title'}) }}">
                        
                         <div class="form-group mr-1 mb-2">
                             <input type="text" class="sm" name="recherche">
@@ -28,7 +28,7 @@
                     <!-- requête pour filtre sur le niveau !-->
                     Niveau 
                       
-                    <form class="form-inline mt-1" method="POST" action="{{ path('formations.findallcontain', {champ:'niveau'}) }}">
+                    <form class="form-inline mt-1" method="POST" action="{{ path('administration.findallcontain', {champ:'niveau'}) }}">
                        
                         <div class="form-group mr-1 mb-2">
                             <input type="text" class="sm" name="recherche">
@@ -40,8 +40,8 @@
                 </th>
                 <th class="text-center align-top" scope="col">
                     Date de parution
-                    <a href="{{ path('formations.sort', {champ:'publishedAt', ordre:'DESC'}) }}" class="btn btn-info btn-sm active" role="button" aria-pressed="true"><</a>
-                    <a href="{{ path('formations.sort', {champ:'publishedAt', ordre:'ASC'}) }}" class="btn btn-info btn-sm active" role="button" aria-pressed="true">></a>
+                    <a href="{{ path('administration.sort', {champ:'publishedAt', ordre:'DESC'}) }}" class="btn btn-info btn-sm active" role="button" aria-pressed="true"><</a>
+                    <a href="{{ path('administration.sort', {champ:'publishedAt', ordre:'ASC'}) }}" class="btn btn-info btn-sm active" role="button" aria-pressed="true">></a>
                  </th>
                 <th class="text-center align-top" scope="col">
                     &nbsp;
@@ -54,14 +54,14 @@
                
                 <tr>
                     <td width = "45%" >
-                        <h5 class="text-info">
+                        <h6 class="text-info">
                             {{ formation.title }}
-                        </h5>
+                        </h6>
                     </td>
                     <td width = "30%" >
-                        <h5 class="text-info">
+                        <h6 class="text-info">
                             {{ formation.niveau.getNom() }}
-                        </h5>
+                        </h6>
                     </td>
                     <td class="text-center" width = "25%">
                         {{ formation.publishedatstring }}
@@ -72,6 +72,10 @@
                                 <img src="{{ formation.miniature }}">
                             </a>
                         {% endif %}
+                    </td> <!-- ajout des boutons pour modifier et supprimer !-->
+                    <td class="text-center">
+                        <input type="button" value="Modifier">
+                        <a href="{{ path('administration.suppr', {id:formation.id}) }}" class="button">supprimer</a>
                     </td>
                 </tr>
             {% endfor %}
