@@ -46,13 +46,25 @@ class FormationRepository extends ServiceEntityRepository
                     ->getQuery()
                     ->getResult();
         }else{
+            if ($champ === 'niveau'){
+                
             return $this->createQueryBuilder('f')
-                    ->where('f.'.$champ.' LIKE :valeur')
+                    ->join('f.niveau', 'n', 'WITH', 'f.niveau = n.id')
+                    ->where('n.nom LIKE :valeur')
                     ->setParameter('valeur', $valeur)
                     ->orderBy('f.publishedAt', 'DESC')
                     ->setParameter('valeur', '%'.$valeur.'%')
                     ->getQuery()
-                    ->getResult();            
+                    ->getResult();}
+            else{
+            return $this->createQueryBuilder('f')
+                    ->where('f.'.$champ.' LIKE :valeur ')
+                    ->setParameter('valeur', $valeur)
+                    ->orderBy('f.publishedAt', 'DESC')
+                    ->setParameter('valeur', '%'.$valeur.'%')
+                    ->getQuery()
+                    ->getResult();                   
+            }            
         }
     }
         
@@ -67,27 +79,6 @@ class FormationRepository extends ServiceEntityRepository
            ->setMaxResults($nb)     
            ->getQuery()
            ->getResult();
-    }
-    /**
-     * requête pour filtre sur le niveau
-     * @param type $champ
-     * @param type $valeur
-     * @return niveau.getNom()[]
-     */
-    public function findByEqualValue($champ, $valeur) : array {
-        if($valeur==""){
-            return $this->createQueryBuilder('n') // alias de la table
-                    ->orderBy('n'.$champ, 'ASC')
-                    ->getQuery()
-                    ->getResult;
-        }else{
-            return $this->createQueryBuilder('n') // alias de la table
-                    ->where ('n'.$champ.'=:valeur')
-                    ->setParameter('valeur',$valeur)
-                    ->orderBy('n.nom','DESC')
-                    ->getQuery()
-                    ->getResult();
-        }
     }
    
 }

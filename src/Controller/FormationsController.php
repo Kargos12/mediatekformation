@@ -72,7 +72,6 @@ class FormationsController extends AbstractController {
     }  
     
  
-    
     /**
      * @Route("/formations/formation/{id}", name="formations.showone")
      * @param type $id
@@ -83,19 +82,5 @@ class FormationsController extends AbstractController {
         return $this->render("pages/formation.html.twig", [
             'formation' => $formation
         ]);        
-    }
-    /**
-     * requête pour filtre sur le niveau
-     * @Route("/niveau/recherche/{champ}", name="niveau.findallequal")
-     * @param type $champ
-     * @param Request $request
-     * @return Response
-     */
-    public function findAllEqual($champ,Request $request): Response{
-        $valeur = $request->get("recherche");
-        $niveau = $this->repository->findByEqualValue($champ, $valeur);
-        return $this->render("pages/formation.html.twig", [
-            'niveau.getNom()' => $niveau
-        ]);
     }
 }

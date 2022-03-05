@@ -15,11 +15,12 @@
         <div class="col">
             <h5> {{ formation.publishedatstring }}</h5>
             <h3 class="text-info mt-5">{{ formation.title }}</h3>
+            <!-- Niveau de la formation -->
             <h7 class="text-info">
-                            Niveau de formation : {{ formation.niveau.getNom() }}
+                Niveau de formation : {{ formation.niveau.getNom() }}
             </h7>
             <p>&nbsp;</p>
-            <p><strong>description :</strong></p>
+            <p><strong>Description :</strong></p>
             <p>
                 {{ formation.description|nl2br }}
             </p>
