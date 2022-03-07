@@ -2,12 +2,14 @@
 namespace App\Controller;
 
 use App\Entity\Formation;
+use App\Form\FormationType;
 use App\Repository\FormationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
 
 /**
  * Description of AdministrationController
@@ -87,5 +89,48 @@ class AdministrationController extends AbstractController{
         $this->om->remove($formation);
         $this->om->flush();
         return $this->redirectToRoute("administration");
+    }
+    
+    /**
+     * Modification d'une formation
+     * @Route("administration/edition/{id}", name="administration.edition")
+     * @param Formation $formation
+     * @param Request $request
+     * @return Response
+     */
+    public function edition(Formation $formation, Request $request) : Response {
+        $formFormation = $this->createForm(FormationType::class, $formation);
+        
+       $formFormation->handleRequest($request);
+        if($formFormation->isSubmitted() && $formFormation->isValid()){
+            $this->om->flush();
+            return $this->redirectToRoute('administration');
+        
+        }
+        return $this->render("pages/administration.edition.html.twig", [
+            'formation' => $formation,
+            'formformation' => $formFormation->createView()
+        ]);
+    }
+    /**
+     * @Route("administration/ajout", name="administration.ajout")
+     * @param Request $request
+     * @return Response
+     */
+        public function ajout( Request $request) : Response {
+        $formation = new formation();
+        $formFormation = $this->createForm(FormationType::class, $formation);
+        
+        $formFormation->handleRequest($request);
+        if($formFormation->isSubmitted() && $formFormation->isValid()){
+            $this->om->persist($formation);
+            $this->om->flush();
+            return $this->redirectToRoute('administration');
+        }
+       
+        return $this->render("pages/administration.ajout.html.twig", [
+            'formation' => $formation,
+            'formformation' => $formFormation->createView()
+        ]);
     }
 }

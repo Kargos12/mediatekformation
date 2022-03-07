@@ -35,8 +35,7 @@ class NiveauxRepository extends ServiceEntityRepository
         ;
     }
     
-
-    
+   
     public function findOneBySomeField($value): ?Niveaux
     {
         return $this->createQueryBuilder('n')

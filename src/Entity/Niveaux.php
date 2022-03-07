@@ -21,7 +21,7 @@ class Niveaux
      * 
      * @ORM\Column(type="string", length=255)
      */
-    private $nom;
+    public $nom;
 
     public function getId(): ?int
     {

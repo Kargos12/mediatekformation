@@ -52,13 +52,13 @@ class Formation
     /**
      * @ORM\ManyToOne(targetEntity=Niveaux::class)
      */
-    private $niveau;
+    public $niveau;
     
     /**
      * @ORM\Column(type="string", length=11, nullable=true)
 
      */
-    private $niveau_id;
+    public $niveau_id;
 
     public function getId(): ?int
     {
@@ -148,7 +148,7 @@ class Formation
     
      public function getNiveauAtString(): ?string {
         
-        return $this->niveau.nom;     
+        return $this->niveau;     
     }  
 
     public function setNiveau(?Niveaux $niveau): self
