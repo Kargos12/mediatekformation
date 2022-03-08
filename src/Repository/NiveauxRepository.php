@@ -35,7 +35,11 @@ class NiveauxRepository extends ServiceEntityRepository
         ;
     }
     
-   
+   /**
+    * 
+    * @param type $value
+    * @return Niveaux|null
+    */
     public function findOneBySomeField($value): ?Niveaux
     {
         return $this->createQueryBuilder('n')
@@ -46,4 +50,40 @@ class NiveauxRepository extends ServiceEntityRepository
         ;
     }
     
+     /**
+     * Retourne tous les niveaux triées sur un champ
+     * @param type $champ
+     * @param type $ordre
+     * @return Niveaux[]
+     */
+    public function findAllOrderBy($champ, $ordre): array{
+            return $this->createQueryBuilder('n')
+                    ->orderBy('n.'.$champ, $ordre)
+                    ->getQuery()
+                    ->getResult();
+    }
+     /**
+     * Enregistrements dont un champ contient une valeur
+     * ou tous les enregistrements si la valeur est vide
+     * @param type $champ
+     * @param type $valeur
+     * @return Niveaux[]
+     */
+    
+    public function findByContainValue($champ, $valeur): array{
+        if($valeur==""){
+            return $this->createQueryBuilder('n')
+                    ->orderBy('n.'.$champ, 'ASC')
+                    ->getQuery()
+                    ->getResult();
+        }else{
+            return $this->createQueryBuilder('n')
+                    ->where('n.'.$champ.' LIKE :valeur')
+                    ->setParameter('valeur', $valeur)
+                    ->orderBy('n.nom', 'DESC')
+                    ->setParameter('valeur', '%'.$valeur.'%')
+                    ->getQuery()
+                    ->getResult();            
+        }
+    }
 }

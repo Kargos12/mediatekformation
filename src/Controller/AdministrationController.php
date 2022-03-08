@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-
 /**
  * Description of AdministrationController
  *
@@ -18,11 +17,17 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class AdministrationController extends AbstractController{
     
-        /**
+    /**
      *
      * @var FormationRepository
      */
     private $repository;
+    
+    /**
+     * 
+     * @var EntityManagerInterface
+     */
+    private $om;
     
     /**
      * 
@@ -72,13 +77,7 @@ class AdministrationController extends AbstractController{
         }
         return $this->redirectToRoute("formations");
     }  
-    
-    /**
-     * 
-     * @var EntityManagerInterface
-     */
-    private $om;
-    
+      
     /**
      * Suppression d'une formation
      * @Route("administration/suppr/{id}", name="administration.suppr")

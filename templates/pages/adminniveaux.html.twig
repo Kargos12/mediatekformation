@@ -1,7 +1,7 @@
 {% extends "basefront.html.twig" %}
 
 {% block body %}
-    <form class="form-inline mt-1" method="POST" action="{{ path('admin.niveaux.ajout') }}">
+    <form class="form-inline mt-1" method="POST" action="{{ path('adminniveaux.ajout') }}">
         <div class="form-group mr-1 mb-2">
             <input type="text" class="sm" name="nom">
         </div>
@@ -26,7 +26,7 @@
                         {{ niveau.nom }}
                     </td>
                     <td>
-                        <a href="{{ path('admin.niveaux.suppr'), (id:niveau.id) }}"
+                        <a href="{{ path('adminniveaux.suppr', {id:niveau.id}) }}"
                            class="btn btn-danger"
                            onclick="return confirm('Etes-vous sûr de vouloir supprimer le niveau {{niveau.nom}} ?')">
                             Supprimer

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controller;
 
 use App\Entity\Niveaux;
@@ -17,8 +16,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class AdminNiveauxController extends AbstractController{
     
-    private const PAGENIVEAUX = "pages/admin.niveaux.html.twig";
-    
     /**
      * 
      * @var NiveauxRepository
@@ -34,46 +31,47 @@ class AdminNiveauxController extends AbstractController{
     /**
      * 
      * @param NiveauxRepository $repository
-     * @param EntityManagerInterface $om
+     * @param EntityManagerInterface
      */
-    function _construct(NiveauxRepository $repository, EntityManagerInterface $om){
+    function __construct(NiveauxRepository $repository, EntityManagerInterface $om){
         $this->repository = $repository;
         $this->om = $om;
     }
     
     /**
-     * @Route("/admin/niveaux", name="admin.niveaux")
+     * @Route("/adminniveaux", name="adminniveaux")
      * @return Response
     */
-    public function index() : Response{
-        $niveaux = $this->repository->findAll();
-        return $this->render(self::PAGENIVEAUX, [
-            'niveaux' => $niveaux
+    public function index(): Response{
+        $niveau = $this->repository->findAll();
+        return $this->render("pages/adminniveaux.html.twig", [
+            'niveaux' => $niveau
         ]);
     }
         
     /**
-     * @Route("/admin/niveaux/suppr/{id}", name="admin.niveaux.suppr")
-     * @param Niveaux $Niveaux
+     * Suppression d'un niveau
+     * @Route("/adminniveaux/suppr/{id}", name="adminniveaux.suppr")
+     * @param Niveaux $niveau
      * @return Response
     */
-    public function suppr (Niveaux $Niveaux): Response {
-        $this->om->remove($niveaux);
+    public function suppr (Niveaux $niveau): Response {
+        $this->om->remove($niveau);
         $this->om->flush();
-        return $this->redirectToRoute('admin.niveaux');
+        return $this->redirectToRoute('adminniveaux');
     }
     
     /**
-     * @route("admin/niveaux/ajout", name="admin.niveaux.ajout")
+     * @route("adminniveaux/ajout", name="adminniveaux.ajout")
      * @param Request $request
      * @return Response
      */
     public function ajout(Request $request):Response{
         $nomNiveau=$request->get("nom");
-        $Niveaux = new Niveaux();
-        $Niveaux->setNom($nomNiveau);
-        $this->om->persist ($Niveaux);
+        $niveau = new Niveaux();
+        $niveau->setNom($nomNiveau);
+        $this->om->persist($niveau);
         $this->om->flush();
-        return $this->redirectToRoute('admin.niveaux');
+        return $this->redirectToRoute('adminniveaux');
     }
 }

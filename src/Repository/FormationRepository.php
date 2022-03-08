@@ -36,7 +36,7 @@ class FormationRepository extends ServiceEntityRepository
      * Enregistrements dont un champ contient une valeur
      * ou tous les enregistrements si la valeur est vide
      * Si la requête s'effectue dans le champ niveau celle-ci 
-     * est alors jointé avec la table niveau
+     * est alors jointé avec la table niveau  
      * @param type $champ
      * @param type $valeur
      * @return Formation[]
