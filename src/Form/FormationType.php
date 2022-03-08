@@ -24,10 +24,10 @@ class FormationType extends AbstractType
                 'required' => true,
                 ))
             ->add('title', TextType::class, ['required' => true])
-            ->add('description')
+            ->add('description', TextType::class)
             ->add('miniature', UrlType::class)
             ->add('picture', UrlType::class)
-            ->add('videoId')
+            ->add('videoId',TextType::class)
             ->add('niveau', EntityType::class, [
                     'class' => Niveaux::class,
                     'choice_label' => 'nom',

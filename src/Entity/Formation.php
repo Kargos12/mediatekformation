@@ -2,9 +2,8 @@
 
 namespace App\Entity;
 
-use DateTime;
-use DateTimeInterface;
 use App\Repository\FormationRepository;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -26,6 +25,7 @@ class Formation
 
     /**
      * @ORM\Column(type="string", length=91, nullable=true)
+     * 
      */
     private $title;
 
