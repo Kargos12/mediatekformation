@@ -21,10 +21,17 @@ class OAuthController extends AbstractController
     }
     
     /**
-     * @Route'"/oauth/callback", name="oauth_check")
+     * @Route("/oauth/callback", name="oauth_check")
      */
     public function check()
     {      
+    }
+    
+    /**
+     * @Route("/logout", name="logout")
+     */
+    public function logout(){
+        
     }
 }
 
