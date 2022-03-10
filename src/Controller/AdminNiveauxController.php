@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Entity\Niveaux;
 use App\Repository\NiveauxRepository;
+use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -50,16 +51,23 @@ class AdminNiveauxController extends AbstractController{
     }
         
     /**
-     * Suppression d'un niveau
+     * Suppression d'un niveau avec message d'alerte si utilisé (suppression alors impossible) et message si ok
      * @Route("/adminniveaux/suppr/{id}", name="adminniveaux.suppr")
      * @param Niveaux $niveau
      * @return Response
     */
     public function suppr (Niveaux $niveau): Response {
-        $this->om->remove($niveau);
-        $this->om->flush();
-        return $this->redirectToRoute('adminniveaux');
-    }
+        try{
+            $this->om->remove($niveau);
+            $this->om->flush();
+            } catch(ForeignKeyConstraintViolationException $ex){
+                $this->addFlash('failed','Impossible de supprimer le niveau : il est utilisé');
+               return $this->redirectToRoute('adminniveaux');
+            } 
+            $this->addFlash('success','Niveau supprimé');
+           return $this->redirectToRoute('adminniveaux');
+            
+    } 
     
     /**
      * @route("adminniveaux/ajout", name="adminniveaux.ajout")

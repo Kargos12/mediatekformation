@@ -32,8 +32,21 @@
                            onclick="return confirm('Etes-vous sûr de vouloir supprimer le niveau {{niveau.nom}} ?')">
                             Supprimer
                         </a>
+                        
                     </td>
                 </tr>
+                <!-- Affichage d'un message d'erreur si le niveau est utilisé --!>
+            {% endfor %}
+            {% for message in app.flashes('failed') %}
+                        <div class="alert alert-danger">
+                            {{ message }}
+                        </div>
+            {% endfor %}
+                <!-- Affichage d'un message si niveau supprimé --!>
+           {% for message in app.flashes('success') %}
+                        <div class="alert alert-success">
+                            {{ message }}
+                        </div>
             {% endfor %}
         </tbody>
     </table>    
